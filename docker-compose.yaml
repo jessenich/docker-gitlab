@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  gitlab-web:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    hostname: ${HOSTNAME}
+    # If disk exhaustion occurs
+    # logging:
+    #   driver: journald
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://${HOSTNAME}:3000'
+        gitlab_rails['gitlab_shell_ssh_port'] = 10022
+        gitlab_rails['lfs_enabled'] = true;
+      GITLAB_ROOT_EMAIL: "${ROOT_EMAIL}"
+      GITLAB_ROOT_PASSWORD: "${ROOT_PASSWORD}"
+    ports:
+      - '3000:3000'
+      - '10022:22'
+    volumes:
+      - '${GITLAB_HOME}/config:/etc/gitlab'
+      - '${GITLAB_HOME}/logs:/var/log/gitlab'
+      - '${GITLAB_HOME}/data:/var/opt/gitlab'
+    shm_size: '256m'
