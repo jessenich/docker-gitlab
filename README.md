@@ -1,1 +1,1 @@
-# WIP
+# GitLab EE on Docker Compose
