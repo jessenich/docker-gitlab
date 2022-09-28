@@ -1,7 +1,7 @@
 version: '3.9'
 services:
-  gitlab-web:
-    image: 'gitlab/gitlab-ee:latest'
+  web:
+    image: 'gitlab/gitlab-ce:latest'
     restart: always
     hostname: ${HOSTNAME}
     # If disk exhaustion occurs
